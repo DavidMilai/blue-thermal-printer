@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:blue_thermal_printer/blue_thermal_printer.dart';
-import 'package:blue_thermal_printer_example/testprint.dart';
+import 'package:bluethermalprinter/testprint.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -117,31 +117,22 @@ class _MyAppState extends State<MyApp> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
-                    Text(
-                      'Device:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 30,
-                    ),
+                    const Text('Device:',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    const SizedBox(width: 30),
                     Expanded(
                       child: DropdownButton(
-                        items: _getDeviceItems(),
-                        onChanged: (BluetoothDevice? value) =>
-                            setState(() => _device = value),
-                        value: _device,
-                      ),
+                          items: _getDeviceItems(),
+                          onChanged: (BluetoothDevice? value) =>
+                              setState(() => _device = value),
+                          value: _device),
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -151,12 +142,12 @@ class _MyAppState extends State<MyApp> {
                       onPressed: () {
                         initPlatformState();
                       },
-                      child: Text(
+                      child: const Text(
                         'Refresh',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     ElevatedButton(
@@ -165,7 +156,7 @@ class _MyAppState extends State<MyApp> {
                       onPressed: _connected ? _disconnect : _connect,
                       child: Text(
                         _connected ? 'Disconnect' : 'Connect',
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ],
@@ -178,7 +169,7 @@ class _MyAppState extends State<MyApp> {
                     onPressed: () {
                       testPrint.sample();
                     },
-                    child: Text('PRINT TEST',
+                    child: const Text('PRINT TEST',
                         style: TextStyle(color: Colors.white)),
                   ),
                 ),
@@ -193,16 +184,16 @@ class _MyAppState extends State<MyApp> {
   List<DropdownMenuItem<BluetoothDevice>> _getDeviceItems() {
     List<DropdownMenuItem<BluetoothDevice>> items = [];
     if (_devices.isEmpty) {
-      items.add(DropdownMenuItem(
+      items.add(const DropdownMenuItem(
         child: Text('NONE'),
       ));
     } else {
-      _devices.forEach((device) {
+      for (var device in _devices) {
         items.add(DropdownMenuItem(
-          child: Text(device.name ?? ""),
           value: device,
+          child: Text(device.name ?? ""),
         ));
-      });
+      }
     }
     return items;
   }
@@ -231,12 +222,12 @@ class _MyAppState extends State<MyApp> {
     String message, {
     Duration duration: const Duration(seconds: 3),
   }) async {
-    await new Future.delayed(new Duration(milliseconds: 100));
+    await Future.delayed(const Duration(milliseconds: 100));
     ScaffoldMessenger.of(context).showSnackBar(
-      new SnackBar(
-        content: new Text(
+      SnackBar(
+        content: Text(
           message,
-          style: new TextStyle(
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
